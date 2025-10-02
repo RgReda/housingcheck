@@ -1,0 +1,30 @@
+body {
+  background-color: #f4f6f8;
+}
+
+.navbar-brand {
+  font-weight: 600;
+}
+
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.card {
+  border: none;
+}
+
+.card-header {
+  background-color: #0b5394;
+  color: #fff;
+  font-weight: 600;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.tradingview-widget-container {
+  min-height: 360px;
+}

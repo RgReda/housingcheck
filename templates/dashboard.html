@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% block title %}Synthèse Marché - Bourse de Casablanca{% endblock %}
+{% block extra_head %}
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+  {
+    "colorTheme": "dark",
+    "dateRange": "12M",
+    "showChart": true,
+    "locale": "fr",
+    "largeChartUrl": "",
+    "isTransparent": false,
+    "width": "100%",
+    "height": "400",
+    "plotLineColorGrowing": "rgba(14, 203, 129, 1)",
+    "plotLineColorFalling": "rgba(255, 0, 0, 1)",
+    "gridLineColor": "rgba(42, 46, 57, 1)",
+    "scaleFontColor": "rgba(209, 212, 220, 1)",
+    "belowLineFillColorGrowing": "rgba(14, 203, 129, 0.12)",
+    "belowLineFillColorFalling": "rgba(255, 0, 0, 0.12)",
+    "symbolActiveColor": "rgba(14, 203, 129, 0.3)",
+    "tabs": [
+      {
+        "title": "Indices",
+        "symbols": [
+          {"s": "CSE:MASI", "d": "MASI"},
+          {"s": "CSE:MSI20", "d": "MSI20"},
+          {"s": "CSE:MADEX", "d": "MADEX"}
+        ]
+      },
+      {
+        "title": "Banques",
+        "symbols": [
+          {"s": "CSE:ATW", "d": "Attijariwafa bank"},
+          {"s": "CSE:BCP", "d": "BCP"},
+          {"s": "CSE:BMCI", "d": "BMCI"}
+        ]
+      },
+      {
+        "title": "Télécoms",
+        "symbols": [
+          {"s": "CSE:IAM", "d": "Maroc Telecom"}
+        ]
+      }
+    ]
+  }
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Indices principaux</span>
+        <small class="text-muted">Mise à jour : <span id="market-updated">{{ snapshot.updated_at.strftime('%H:%M:%S') if snapshot.updated_at else '—' }} UTC</span></small>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped mb-0" id="indices-table">
+          <thead>
+            <tr>
+              <th>Indice</th>
+              <th>Dernier</th>
+              <th>Variation</th>
+              <th>%</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for index in snapshot.indices %}
+            <tr data-symbol="{{ index.symbol }}">
+              <td><a href="{{ url_for('action_detail', symbol=index.symbol) }}">{{ index.name }}</a></td>
+              <td class="text-end">{{ index.last }}</td>
+              <td class="text-end">{{ index.change }}</td>
+              <td class="text-end">{{ (index.percent_change * 100)|round(2) }}%</td>
+              <td class="text-end">{{ index.volume | int }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header">Vue graphique TradingView</div>
+      <div class="card-body">
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <div class="tradingview-widget-copyright"><a href="https://fr.tradingview.com/" rel="noopener" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mt-1">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-header">Actions les plus actives</div>
+      <div class="table-responsive">
+        <table class="table table-hover mb-0" id="stocks-table">
+          <thead>
+            <tr>
+              <th>Titre</th>
+              <th>Dernier</th>
+              <th>Variation</th>
+              <th>%</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for stock in snapshot.stocks %}
+            <tr data-symbol="{{ stock.symbol }}">
+              <td><a href="{{ url_for('action_detail', symbol=stock.symbol) }}">{{ stock.name }}</a> <span class="badge bg-secondary">{{ stock.symbol }}</span></td>
+              <td class="text-end">{{ stock.last }}</td>
+              <td class="text-end">{{ stock.change }}</td>
+              <td class="text-end">{{ (stock.percent_change * 100)|round(2) }}%</td>
+              <td class="text-end">{{ stock.volume | int }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header">Configurer une alerte</div>
+      <div class="card-body">
+        <form id="alert-form">
+          <div class="mb-3">
+            <label for="alert-symbol" class="form-label">Symbole</label>
+            <input type="text" class="form-control" id="alert-symbol" placeholder="Ex: BCP" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Condition</label>
+            <select class="form-select" id="alert-condition">
+              <option value="above">Au-dessus de</option>
+              <option value="below">En-dessous de</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="alert-threshold" class="form-label">Seuil</label>
+            <input type="number" step="0.01" class="form-control" id="alert-threshold" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Créer l'alerte</button>
+        </form>
+      </div>
+    </div>
+    <div class="card shadow-sm">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>Alertes actives</span>
+        <button class="btn btn-sm btn-outline-secondary" id="clear-triggered">Vider déclenchements</button>
+      </div>
+      <div class="card-body">
+        <div id="alert-list">
+          {% for alert in alerts %}
+          <div class="alert alert-light border d-flex justify-content-between align-items-center" data-alert-id="{{ alert.id }}">
+            <div>
+              <strong>{{ alert.symbol }}</strong> {{ '≥' if alert.condition == 'above' else '≤' }} {{ alert.threshold }}
+              {% if alert.triggered_at %}<span class="badge bg-warning text-dark">Déclenchée</span>{% endif %}
+            </div>
+            <button class="btn btn-sm btn-outline-danger" data-delete-alert>Supprimer</button>
+          </div>
+          {% else %}
+          <p class="text-muted">Aucune alerte définie pour le moment.</p>
+          {% endfor %}
+        </div>
+        <div id="triggered-alerts" class="mt-3">
+          {% if triggered_alerts %}
+          <h6>Derniers déclenchements</h6>
+          <ul class="list-group">
+            {% for alert in triggered_alerts %}
+            <li class="list-group-item">{{ alert.symbol }} {{ '≥' if alert.condition == 'above' else '≤' }} {{ alert.threshold }} ({{ alert.triggered_at.strftime('%H:%M:%S') if alert.triggered_at else '' }})</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mt-1">
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-header">Actualités récentes</div>
+      <div class="list-group list-group-flush" id="news-list">
+        {% for item in news_items %}
+        <a class="list-group-item list-group-item-action" href="{{ item.link }}" target="_blank" rel="noopener">
+          <div class="d-flex w-100 justify-content-between">
+            <h6 class="mb-1">{{ item.title }}</h6>
+            <small class="text-muted">{{ item.source }}</small>
+          </div>
+          {% if item.published %}<small class="text-muted">{{ item.published.strftime('%d/%m %H:%M') }}</small>{% endif %}
+        </a>
+        {% else %}
+        <div class="list-group-item">Aucune actualité disponible.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-header">Focus OPCVM</div>
+      <div class="table-responsive">
+        <table class="table table-sm mb-0" id="opcvm-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Nom</th>
+              <th>Catégorie</th>
+              <th>VL</th>
+              <th>Périodicité</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for fund in snapshot.opcvm %}
+            <tr>
+              <td>{{ fund.code }}</td>
+              <td>{{ fund.name }}</td>
+              <td>{{ fund.category }}</td>
+              <td>{{ fund.vl }}</td>
+              <td>{{ fund.frequency }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer text-end"><a href="{{ url_for('opcvm') }}">Voir tous les fonds</a></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
