@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "source": "Medias24",
+    "titre": "Attijariwafa Bank publie ses résultats trimestriels",
+    "url": "https://medias24.com/awbreport",
+    "resume": "Croissance du PNB de 7% au T1.",
+    "published_at": "2024-05-09T08:30:00",
+    "tickers": ["CSE:ATW"],
+    "news_impact_score": 0.6
+  },
+  {
+    "id": 2,
+    "source": "BourseNews",
+    "titre": "Le MASI clôture en hausse",
+    "url": "https://boursenews.ma/masi-haut",
+    "resume": "La séance se termine dans le vert avec une dynamique positive.",
+    "published_at": "2024-05-09T17:00:00",
+    "tickers": ["MASI"],
+    "news_impact_score": 0.4
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "code": "MASI",
+    "nom": "MASI",
+    "niveau": 10234.56,
+    "var_jour": 0.45,
+    "var_semaine": 1.2,
+    "var_mois": 2.4
+  },
+  {
+    "code": "MSI20",
+    "nom": "MSI20",
+    "niveau": 9250.12,
+    "var_jour": -0.12,
+    "var_semaine": 0.8,
+    "var_mois": 1.1
+  },
+  {
+    "code": "MASI_ESG",
+    "nom": "MASI ESG",
+    "niveau": 11011.11,
+    "var_jour": 0.32,
+    "var_semaine": 0.9,
+    "var_mois": 1.7
+  }
+]
