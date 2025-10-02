@@ -76,6 +76,7 @@ make up
 
 Le script `make seed` alimente la base SQLite à partir de `data/samples`. Les fichiers JSON et `bulletin_sample.pdf` garantissent un fonctionnement hors-ligne.
 
+"codex/generate-complete-monorepo-for-cse-dashboard-y9ebue
 ### Configuration détaillée (.env)
 
 Copiez `.env.example` vers `.env` à la racine du dépôt et complétez les variables suivantes avant un déploiement :
@@ -93,6 +94,8 @@ Copiez `.env.example` vers `.env` à la racine du dépôt et complétez les vari
 
 Astuce : pour Docker Compose, ajoutez un fichier `deploy/.env` avec les mêmes clés ; `docker-compose.yml` charge automatiquement ce fichier si présent.
 
+=======
+"main
 ## Tests & Qualité
 
 - `make lint` : Ruff + Black + mypy
