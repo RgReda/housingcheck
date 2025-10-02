@@ -1,0 +1,28 @@
+[
+  {
+    "ticker": "CSE:ATW",
+    "nom": "Attijariwafa Bank",
+    "secteur": "Banques",
+    "flottant": 30.5,
+    "date": "2024-05-10T00:00:00",
+    "open": 450.0,
+    "high": 455.0,
+    "low": 448.0,
+    "close": 452.0,
+    "volume": 120000,
+    "variation_pct": 0.012
+  },
+  {
+    "ticker": "CSE:BCP",
+    "nom": "Banque Populaire",
+    "secteur": "Banques",
+    "flottant": 25.0,
+    "date": "2024-05-10T00:00:00",
+    "open": 320.0,
+    "high": 325.0,
+    "low": 318.0,
+    "close": 322.0,
+    "volume": 85000,
+    "variation_pct": 0.015
+  }
+]

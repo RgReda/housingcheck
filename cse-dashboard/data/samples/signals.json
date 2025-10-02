@@ -1,0 +1,22 @@
+[
+  {
+    "ticker": "CSE:ATW",
+    "date": "2024-05-10T00:00:00",
+    "momentum_3m": 0.12,
+    "momentum_6m": 0.25,
+    "reversal_1w": -0.03,
+    "adtv": 110000,
+    "news_impact_score": 0.6,
+    "classement": "top"
+  },
+  {
+    "ticker": "CSE:BCP",
+    "date": "2024-05-10T00:00:00",
+    "momentum_3m": 0.08,
+    "momentum_6m": 0.18,
+    "reversal_1w": -0.01,
+    "adtv": 90000,
+    "news_impact_score": 0.4,
+    "classement": "surveillance"
+  }
+]

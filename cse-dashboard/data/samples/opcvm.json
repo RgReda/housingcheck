@@ -1,0 +1,25 @@
+[
+  {
+    "code": "OPC001",
+    "nom": "Fonds Actions Maroc",
+    "categorie": "Actions",
+    "societe_gestion": "Société de Gestion A",
+    "periodicite_vl": "Quotidienne",
+    "performances": {"perf_ytd": 5.2, "perf_1m": 1.1, "perf_3m": 3.4},
+    "valeurs_liquidatives": [
+      {"date": "2024-05-09T00:00:00", "vl": 112.35},
+      {"date": "2024-05-08T00:00:00", "vl": 111.80}
+    ]
+  },
+  {
+    "code": "OPC002",
+    "nom": "Fonds Monétaire Maroc",
+    "categorie": "Monétaire",
+    "societe_gestion": "Société de Gestion B",
+    "periodicite_vl": "Hebdomadaire",
+    "performances": {"perf_ytd": 2.1, "perf_1m": 0.4, "perf_3m": 0.9},
+    "valeurs_liquidatives": [
+      {"date": "2024-05-07T00:00:00", "vl": 102.10}
+    ]
+  }
+]
