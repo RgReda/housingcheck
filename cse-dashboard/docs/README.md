@@ -76,6 +76,26 @@ make up
 
 Le script `make seed` alimente la base SQLite à partir de `data/samples`. Les fichiers JSON et `bulletin_sample.pdf` garantissent un fonctionnement hors-ligne.
 
+"codex/generate-complete-monorepo-for-cse-dashboard-y9ebue
+### Configuration détaillée (.env)
+
+Copiez `.env.example` vers `.env` à la racine du dépôt et complétez les variables suivantes avant un déploiement :
+
+| Variable | Obligatoire | Description |
+| --- | --- | --- |
+| `ENVIRONMENT` | Oui | `development`, `staging` ou `production` pour piloter le niveau de logs. |
+| `DATABASE_URL` | Oui | Chaîne SQLModel/SQLAlchemy. Exemple : `sqlite:///./cse_dashboard.db` en local ou `postgresql+psycopg://user:pass@host:5432/dbname` en production. |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` | Requis pour l’envoi d’e-mails | Renseignez l’hôte SMTP autorisé (par ex. `smtp.sendgrid.net`), le port (souvent `587`), l’utilisateur et le mot de passe/API key. Sans ces valeurs, le module d’alertes e-mail est désactivé automatiquement. |
+| `TELEGRAM_BOT_TOKEN` / `TELEGRAM_CHAT_ID` | Requis pour alertes Telegram | Créez un bot via `@BotFather`, récupérez le token et indiquez l’identifiant du salon ou de l’utilisateur cible (via `getUpdates`). Si l’un manque, l’envoi Telegram est ignoré. |
+| `ENABLE_SCRAPING` | Oui (défaut `true`) | Permet de désactiver toute collecte distante pour un environnement soumis à des restrictions réseau/licence. |
+| `LEGAL_DELAY_BANNER` | Oui | Doit rester à `true` tant que vous n’avez pas souscrit à un flux temps réel licencié ; masque obligatoire “Cours différés ~15 min (public)”. |
+| `TRADINGVIEW_SYMBOLS_MAPPING_FILE` | Oui | Fichier JSON contenant le mapping CSE → symboles TradingView. Laisser la valeur par défaut pour les démos hors-ligne. |
+| `DAILY_CLOSE_PDF_PATH` | Oui | Chemin vers le bulletin PDF utilisé par le job `daily-close`. Remplacez-le par un stockage partagé ou un téléchargement automatisé en production. |
+
+Astuce : pour Docker Compose, ajoutez un fichier `deploy/.env` avec les mêmes clés ; `docker-compose.yml` charge automatiquement ce fichier si présent.
+
+=======
+"main
 ## Tests & Qualité
 
 - `make lint` : Ruff + Black + mypy
