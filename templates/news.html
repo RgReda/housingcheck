@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Actualités financières marocaines{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-header">Veille marchés et entreprises</div>
+  <div class="list-group list-group-flush">
+    {% for item in news_items %}
+    <a class="list-group-item list-group-item-action" href="{{ item.link }}" target="_blank" rel="noopener">
+      <div class="d-flex w-100 justify-content-between">
+        <h6 class="mb-1">{{ item.title }}</h6>
+        <small class="text-muted">{{ item.source }}</small>
+      </div>
+      {% if item.published %}<small class="text-muted">{{ item.published.strftime('%d/%m/%Y %H:%M') }}</small>{% endif %}
+    </a>
+    {% else %}
+    <div class="list-group-item">Les flux sont momentanément indisponibles.</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

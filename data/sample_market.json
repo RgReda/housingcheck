@@ -1,0 +1,19 @@
+{
+  "indices": [
+    {"symbol": "MASI", "name": "MASI Index", "last": 19023.45, "change": 0.45, "percent_change": 0.0024, "volume": 125000000},
+    {"symbol": "MSI20", "name": "MSI20", "last": 1550.32, "change": -4.12, "percent_change": -0.0026, "volume": 82000000},
+    {"symbol": "MADEX", "name": "MADEX", "last": 14852.11, "change": 12.65, "percent_change": 0.0009, "volume": 54000000}
+  ],
+  "stocks": [
+    {"symbol": "BCP", "name": "Banque Centrale Populaire", "last": 290.10, "change": 2.10, "percent_change": 0.0073, "volume": 120450},
+    {"symbol": "IAM", "name": "Maroc Telecom", "last": 102.50, "change": -0.40, "percent_change": -0.0039, "volume": 98500},
+    {"symbol": "ATW", "name": "Attijariwafa bank", "last": 489.80, "change": 1.60, "percent_change": 0.0033, "volume": 65600},
+    {"symbol": "LABEL", "name": "Label'Vie", "last": 5100.00, "change": -35.00, "percent_change": -0.0068, "volume": 4500},
+    {"symbol": "ADD", "name": "Addoha", "last": 13.80, "change": 0.10, "percent_change": 0.0073, "volume": 842000}
+  ],
+  "opcvm": [
+    {"code": "OPCVM001", "name": "FCP Actions Maroc", "category": "Actions", "vl": 152.34, "frequency": "Hebdomadaire"},
+    {"code": "OPCVM002", "name": "FCP Diversifié Atlas", "category": "Diversifié", "vl": 120.85, "frequency": "Quotidienne"},
+    {"code": "OPCVM003", "name": "FCP Monétaire Sud", "category": "Monétaire", "vl": 105.65, "frequency": "Quotidienne"}
+  ]
+}

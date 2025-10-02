@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}OPCVM Maroc{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-header">Panorama des OPCVM</div>
+  <div class="card-body">
+    <p class="text-muted">Liste indicative basée sur les dernières publications de l'AMMC. Les valeurs liquidatives (VL) sont données à titre informatif.</p>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>VL</th>
+            <th>Périodicité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fund in funds %}
+          <tr>
+            <td>{{ fund.code }}</td>
+            <td>{{ fund.name }}</td>
+            <td>{{ fund.category }}</td>
+            <td>{{ fund.vl }}</td>
+            <td>{{ fund.frequency }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="text-center text-muted">Pas de données disponibles pour le moment.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
